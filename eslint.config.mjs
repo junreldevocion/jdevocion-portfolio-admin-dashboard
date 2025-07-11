@@ -1,16 +1,24 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import { FlatCompat } from '@eslint/eslintrc';
 
 const compat = new FlatCompat({
-  baseDirectory: __dirname,
+  baseDirectory: import.meta.dirname,
 });
 
 const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...compat.config({
+    extends: ['next/core-web-vitals', 'next/typescript', 'prettier'],
+    rules: {
+      // ✅ Disallow extra blank lines
+      'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
+      // ✅ Enforce single quotes
+      quotes: ['error', 'single', { avoidEscape: true }],
+      // ✅ Enforce 2-space indentation
+      indent: ['error', 2],
+      // ✅ Enforce semicolons
+      semi: ['error', 'always'],
+    }
+  }),
 ];
 
 export default eslintConfig;
