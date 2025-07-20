@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function RegisterPage() {
   return (
     <div className="w-[500px] bg-white rounded m-auto p-8">
@@ -25,6 +27,10 @@ export default function RegisterPage() {
         </div>
         <div className="flex flex-col gap-2">
           <button type="submit" className="px-4 py-2 bg-indigo-400 rounded cursor-pointer text-white text-sm">Register</button>
+        </div>
+        <div className='flex flex-row gap-2 text-sm'>
+          <p>Aleady have an account?</p>
+          <Link href="/login" className='text-blue-900'>login</Link>
         </div>
       </form>
     </div>
