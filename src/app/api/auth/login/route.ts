@@ -1,4 +1,4 @@
-import { Environment } from '@/src/constants/Environtment';
+import { Environment } from '@/src/lib/constants/Environtment';
 import axios from 'axios';
 
 export async function POST(request: Request) {

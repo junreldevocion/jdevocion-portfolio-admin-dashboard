@@ -1,15 +1,16 @@
 
 import { cookies } from 'next/headers';
-import { Cookie } from '../constants/Cookie';
+import { Cookie } from './constants/Cookie';
+import { ICookieManager } from '../interfaces';
 
-export class ServerCookieManager {
+export class ServerCookieManager implements ICookieManager {
 
-  static async getAccessToken(): Promise<string | null> {
+  async getAccessToken() {
     const cookieStore = await cookies();
     return cookieStore.get(Cookie.ACCESS_TOKEN)?.value ?? null;
   }
 
-  static async setAccessToken(token: string): Promise<void> {
+  async setAccessToken(token: string) {
     const cookieStore = await cookies();
     cookieStore.set({
       name: Cookie.ACCESS_TOKEN,
@@ -22,7 +23,7 @@ export class ServerCookieManager {
     });
   }
 
-  static async deleteAccessToken(): Promise<void> {
+  async deleteAccessToken() {
     const cookieStore = await cookies();
     cookieStore.delete(Cookie.ACCESS_TOKEN);
   }

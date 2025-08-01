@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { useState } from 'react';
-import { TfiAngleDown, TfiDashboard } from 'react-icons/tfi';
+import { SidebarIcons } from '@/src/icons/SidebarIcons';
 
 const Sidebar = () => {
   const pathName = usePathname();
@@ -17,8 +17,8 @@ const Sidebar = () => {
     {
       name: 'Dashboard',
       href: '/dashboard',
-      iconLeft: <TfiDashboard size={16} />,
-      iconRight: <TfiAngleDown size={16} />,
+      iconLeft: SidebarIcons.TbLayoutDashboardFilled,
+      iconRight: SidebarIcons.RxChevronDown,
       children: [
         {
           name: 'TechStacks',
@@ -62,7 +62,7 @@ const Sidebar = () => {
               {children && (
                 <ul className={twMerge('flex flex-col gap-1 pl-8 pr-4 w-full mt-2 ', activeMenu ? 'block' : 'hidden')}>
                   {children.map(({ name: childName, href: childHref }, childIndex) => {
-                    const activeChildLink = pathName === childHref ? 'bg-indigo-50 text-indigo-400' : '';
+                    const activeChildLink = pathName.includes(childHref) ? 'bg-indigo-50 text-indigo-400' : '';
                     return (
                       <li key={`${childIndex}-${childName}`}>
                         <Link href={childHref} className={twMerge('px-4 py-3 text-sm flex rounded-lg cursor-pointer hover:bg-indigo-50', activeChildLink)}>{childName}</Link>
@@ -77,8 +77,8 @@ const Sidebar = () => {
       </ul>
       <BorderLine />
       <div className="mt-8 mx-4">
-        <form className='w-full hover:bg-indigo-50 rounded-lg' action={handleLogout}>
-          <button type="submit" className='w-full px-4 py-3 text-sm flex cursor-pointer'>Logout</button>
+        <form className='w-full hover:bg-indigo-50 rounded-lg flex items-center hover:text-indigo-400' action={handleLogout}>
+          <button type="submit" className='w-full px-4 py-3 text-sm flex cursor-pointer items-center gap-2'>{SidebarIcons.CiUser}Logout</button>
         </form>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Cookie } from './constants/Cookie';
+import { Cookie } from './lib/constants/Cookie';
 
 export default async function middleware(request: NextRequest) {
   const hasAccessToken = request.cookies.get(Cookie.ACCESS_TOKEN);

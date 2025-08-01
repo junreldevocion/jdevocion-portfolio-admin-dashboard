@@ -1,12 +1,4 @@
-export type LoginFormState = {
-  success: boolean;
-  message?: string;
-  errors?: {
-    username?: string[],
-    password?: string[]
-  },
-  password: string;
-  username: string;
-  hasError?: boolean;
-  errorMessage?: string;
-}
+import { SignInputs } from '@/src/lib/schema/auth.schema';
+import { CustomApiResponse } from '@/src/types';
+
+export type SignServerResponse = CustomApiResponse<SignInputs, unknown>

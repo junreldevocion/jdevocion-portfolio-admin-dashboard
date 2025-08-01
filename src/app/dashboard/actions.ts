@@ -5,10 +5,10 @@ import { redirect } from 'next/navigation';
 
 export async function handleLogout() {
   try {
-    await ServerCookieManager.deleteAccessToken();
+    await new ServerCookieManager().deleteAccessToken();
   } catch (error) {
     console.error('Error deleting access token:', error);
   }
 
-  return redirect('/auth/login');
+  redirect('/auth/login');
 }

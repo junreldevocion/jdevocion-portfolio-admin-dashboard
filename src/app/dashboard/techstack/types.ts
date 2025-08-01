@@ -1,13 +1,5 @@
-export type StackFormState = {
-  name: string;
-  errors?: {
-    name?: string[];
-  };
-  success?: boolean;
-  message?: string;
-  hasError?: boolean;
-  errorMessage?: string;
-}
+import { TechStackInput } from '@/src/lib/schema/techstack.schema';
+import { CustomApiResponse } from '@/src/types';
 
 export type GetTechStacks = {
   techStacks?: TechStackTypeProps[];
@@ -34,3 +26,13 @@ export type TechStackTypeProps = {
   createdAt: string;
   createdBy: UserProps;
 }
+
+export type StackDto = {
+  name: string;
+}
+
+export type fieldErrors = {
+  name: string[]
+}
+
+export type TechstackServerResponse = CustomApiResponse<TechStackInput, unknown>

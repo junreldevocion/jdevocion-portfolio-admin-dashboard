@@ -1,27 +1,28 @@
-import { deleteTechStack } from '@/src/app/dashboard/techstack/action';
-import { TechStackTypeProps } from '@/src/app/dashboard/techstack/types';
+
+import { deleteTechstack } from '@/src/app/dashboard/techstack/action';
 import { Button } from '@/src/components/Button';
+import { TechStackInput } from '@/src/lib/schema/techstack.schema';
 import { format } from 'date-fns';
 
 interface ListOfStacksProps {
-  stack: TechStackTypeProps;
-  onEdit: (stack: TechStackTypeProps) => void;
+  stack: TechStackInput;
+  onEdit: (stack: TechStackInput) => void;
 }
 
 export const ListOfStacks = ({ stack, onEdit }: ListOfStacksProps) => {
   const { name, createdAt, createdBy, id } = stack;
-  const createdByName = [createdBy].map(user => `${user.firstname} ${user.lastname}`).join(', ');
+  const createdByName = [createdBy].map(user => `${user?.firstname} ${user?.lastname}`).join(', ');
 
   const handleDelete = async (e: React.FormEvent) => {
     e.preventDefault();
     // Call the delete function here, passing the id
-    await deleteTechStack({ id });
+    await deleteTechstack(id ?? 0);
   };
 
   return <>
     <tr className="text-left border-b border-indigo-100">
       <td className="p-4">{name}</td>
-      <td className="p-4">{format(new Date(createdAt), 'MM/dd/yyyy')}</td>
+      <td className="p-4">{format(new Date(createdAt ?? new Date()), 'MM/dd/yyyy')}</td>
       <td className="p-4">{createdByName}</td>
       <td className="p-4 flex gap-2">
         <form className='w-fit' onSubmit={handleDelete}>

@@ -1,5 +1,6 @@
 
 import '@/src/styles/globals.css';
+import { Toaster } from 'sonner';
 
 export const metadata = {
   title: 'Admin Dashboard',
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en">
       <body className="">
         {children}
+        <Toaster position='top-center' richColors />
       </body>
     </html>
   );
