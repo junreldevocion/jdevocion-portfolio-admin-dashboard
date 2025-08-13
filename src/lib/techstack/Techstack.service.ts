@@ -1,12 +1,11 @@
-import { AxiosServices } from '@/src/lib/services/Axios.service';
-import { ICookieManager } from '../../interfaces';
-import { DeleteTechstackResponse, ITechstack, TechstackResponse } from '../interfaces/Techstack.interface';
-import { Techstack } from '../model/Techstack.model';
-import { Routes } from '../constants/routes';
-import { ServerCookieManager } from '../ServerCookieManager';
-import { TechStackInput } from '../schema/techstack.schema';
 
-class TechstackService extends AxiosServices implements ITechstack {
+import { AxiosServices } from '@/src/lib/services/Axios.service';
+import { Techstack } from './Techstack.model';
+import { Routes } from '../constants/routes';
+import { TechStackInput } from './techstack.schema';
+import { DeleteTechstackResponse, ITechstack, TechstackResponse } from './Techstack.interface';
+
+export class TechstackService extends AxiosServices implements ITechstack {
 
   readonly techStackModel = Techstack;
 
@@ -14,12 +13,8 @@ class TechstackService extends AxiosServices implements ITechstack {
     super(accessToken);
   }
 
-  static async init(cookieManager?: ICookieManager) {
-    const accessToken = cookieManager ? await cookieManager.getAccessToken() : null;
-    return new TechstackService(accessToken);
-  }
-
   async createTechstack(inputs: unknown): Promise<TechstackResponse> {
+    console.log(inputs, 'input');
     const validatedInputs = this.techStackModel.validate(inputs);
 
     if (!validatedInputs.success) {
@@ -83,5 +78,3 @@ class TechstackService extends AxiosServices implements ITechstack {
     };
   }
 }
-
-export const techstackInstance: ITechstack = await TechstackService.init(new ServerCookieManager);

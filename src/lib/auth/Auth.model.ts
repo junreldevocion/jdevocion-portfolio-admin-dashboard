@@ -1,8 +1,8 @@
 import z from 'zod';
-import { SignInputs, singInFormSchema } from '../schema/auth.schema';
+import { SignInputs, SingInFormSchema } from './Auth.schema';
 
 export class AuthModel {
-  static schema = singInFormSchema;
+  static schema = SingInFormSchema;
 
   static validate(input: unknown) {
     const result = this.schema.safeParse(input);

@@ -8,11 +8,11 @@ const createdBySchema = z.object({
   role: z.enum(['user', 'admin']), // Adjust roles as needed
 });
 
-export const techStackSchema = z.object({
+export const TechStackSchema = z.object({
   id: z.number().optional(),
   name: z.string().min(1, { message: 'Name is required' }),
   createdBy: createdBySchema.optional(),
   createdAt: z.string().optional(),
 });
 
-export type TechStackInput = z.infer<typeof techStackSchema>;
+export type TechStackInput = z.infer<typeof TechStackSchema>;

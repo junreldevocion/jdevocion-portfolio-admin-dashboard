@@ -1,7 +1,7 @@
 
 import { cookies } from 'next/headers';
-import { Cookie } from './constants/Cookie';
-import { ICookieManager } from '../interfaces';
+import { Cookie } from '../constants/Cookie';
+import { ICookieManager } from './Cookie.interface';
 
 export class ServerCookieManager implements ICookieManager {
 

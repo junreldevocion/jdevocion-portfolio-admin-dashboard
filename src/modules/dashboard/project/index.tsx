@@ -1,22 +1,22 @@
 'use client';
 
-import { ProjectTypeProps } from '@/src/app/dashboard/project/types';
 import { Button } from '@/src/components/Button';
 import { ListOfProjects } from './ListOfProjects';
 import { useState } from 'react';
 import { Modal } from '@/src/components/Modal';
 import { ProjectForm } from './ProjectForm';
-import { TechStackTypeProps } from '@/src/app/dashboard/techstack/types';
+import { TechStackInput } from '@/src/lib/techstack/techstack.schema';
+import { ProjectInputResponse } from '@/src/lib/project/Project.interface';
 
 interface ProjectProps {
-  projects: ProjectTypeProps[];
-  techstacks?: TechStackTypeProps[]
+  projects: ProjectInputResponse[]
+  techstacks?: TechStackInput[]
 }
 
 export const Project: React.FC<ProjectProps> = ({ projects, techstacks }) => {
 
   const [openFormModal, setOpenFormModal] = useState<boolean>(false);
-  const [dataToEdit, setDataToEdit] = useState<ProjectTypeProps | undefined>(undefined);
+  const [dataToEdit, setDataToEdit] = useState<ProjectInputResponse | undefined>(undefined);
 
   return (
     <div className="mt-4">
@@ -39,7 +39,7 @@ export const Project: React.FC<ProjectProps> = ({ projects, techstacks }) => {
       <Modal isOpen={openFormModal} onClose={() => setOpenFormModal(!openFormModal)}>
         <Modal.header title={dataToEdit ? 'Update project' : 'Add new project'} onClose={() => setOpenFormModal(!openFormModal)} />
         <Modal.body>
-          <ProjectForm initValues={dataToEdit} mode={dataToEdit ? 'update' : 'create'} techstacks={techstacks} />
+          <ProjectForm initValues={dataToEdit} mode={dataToEdit ? 'update' : 'create'} onClose={(bol) => setOpenFormModal(bol)} techstacks={techstacks} />
         </Modal.body>
       </Modal>
     </div>

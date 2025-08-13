@@ -1,6 +1,6 @@
 'use server';
 
-import { ServerCookieManager } from '@/src/lib/ServerCookieManager';
+import { ServerCookieManager } from '@/src/lib/cookie/Server.Cookie';
 import { redirect } from 'next/navigation';
 
 export async function handleLogout() {

@@ -1,11 +1,13 @@
 import { handleStackFormSave, handleStackFormUpdate } from '@/src/app/dashboard/techstack/action';
-import { TechstackServerResponse } from '@/src/app/dashboard/techstack/types';
 import { ValidateInput } from '@/src/components/ValidateInput';
-import { TechStackInput } from '@/src/lib/schema/techstack.schema';
+import { Messages } from '@/src/lib/constants/Messages';
+import { TechstackResponse } from '@/src/lib/techstack/Techstack.interface';
+import { TechStackInput } from '@/src/lib/techstack/techstack.schema';
 import { useActionState, useEffect } from 'react';
+import { toast } from 'sonner';
 import { twMerge } from 'tailwind-merge';
 
-const initialState: TechstackServerResponse = {
+const initialState: TechstackResponse = {
   fields: {
     name: ''
   },
@@ -25,14 +27,12 @@ export const StackForm = ({ setHasError, editValues, mode = 'create' }: StackFor
     handleFormAction = handleStackFormUpdate;
   }
 
-  const [state, formAction, pending] = useActionState<TechstackServerResponse, FormData>(handleFormAction, initialState);
+  const [state, formAction, pending] = useActionState<TechstackResponse, FormData>(handleFormAction, initialState);
 
   const stackName = editValues?.name || '';
   const id = editValues?.id || 0;
 
   const { hasError, message, fields, errors, data } = state;
-
-  console.log(fields, 'fields');
 
   useEffect(() => {
     if (hasError && message) {
@@ -41,6 +41,11 @@ export const StackForm = ({ setHasError, editValues, mode = 'create' }: StackFor
 
     if (!hasError && data) {
       setHasError(false);
+      let message = Messages.CREATED_TECHSTACK_MESSAGE;
+      if (mode === 'update') {
+        message = Messages.UPDATED_TECHSTACK_MESSAGE;
+      }
+      toast.success(message);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

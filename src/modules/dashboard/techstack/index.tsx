@@ -1,11 +1,11 @@
 'use client';
 
 import { Button } from '@/src/components/Button';
-import { ListOfStacks } from './ListOfStacks';
 import { useState } from 'react';
 import { Modal } from '@/src/components/Modal';
 import { StackForm } from './StackForm';
-import { TechStackInput } from '@/src/lib/schema/techstack.schema';
+import { TechStackInput } from '@/src/lib/techstack/techstack.schema';
+import { RenderListOfStacks } from './RenderListOfStacks';
 
 interface TechStackProps {
   data: TechStackInput[] | undefined
@@ -35,7 +35,7 @@ export const TechStack: React.FC<TechStackProps> = ({ data }) => {
           <tbody>
             {
               (data ?? []).map((stack) => (
-                <ListOfStacks key={stack.id} stack={stack} onEdit={(item) => {
+                <RenderListOfStacks key={stack.id} stack={stack} onEdit={(item) => {
                   setStackToEdit(item);
                   setIsOpen(true);
                 }} />

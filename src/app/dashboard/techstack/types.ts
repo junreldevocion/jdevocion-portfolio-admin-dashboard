@@ -1,5 +1,3 @@
-import { TechStackInput } from '@/src/lib/schema/techstack.schema';
-import { CustomApiResponse } from '@/src/types';
 
 export type GetTechStacks = {
   techStacks?: TechStackTypeProps[];
@@ -34,5 +32,3 @@ export type StackDto = {
 export type fieldErrors = {
   name: string[]
 }
-
-export type TechstackServerResponse = CustomApiResponse<TechStackInput, unknown>

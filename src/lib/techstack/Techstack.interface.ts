@@ -1,6 +1,6 @@
 
-import { TechStackInput } from '../schema/techstack.schema';
-import { CustomApiResponse } from '@/src/types';
+import { TechStackInput } from '../techstack/techstack.schema';
+import { CustomApiResponse } from '@/src/lib/types';
 
 export type TechstackResponse = CustomApiResponse<TechStackInput, TechStackInput>
 

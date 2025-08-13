@@ -5,9 +5,9 @@ import { handleLoginForm } from './action';
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 import { ValidateInput } from '@/src/components/ValidateInput';
-import { SignServerResponse } from './types';
+import { SignInResponse } from '@/src/lib/interfaces/Auth.interface';
 
-const initialState: SignServerResponse = {
+const initialState: SignInResponse = {
   fields: {
     username: '',
     password: ''
@@ -21,7 +21,7 @@ const initialState: SignServerResponse = {
 
 export default function LoginPage() {
 
-  const [state, formAction, pending] = useActionState<SignServerResponse, FormData>(handleLoginForm, initialState);
+  const [state, formAction, pending] = useActionState<SignInResponse, FormData>(handleLoginForm, initialState);
 
   const { hasError, message, errors, fields } = state;
 

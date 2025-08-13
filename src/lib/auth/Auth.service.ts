@@ -1,7 +1,8 @@
 import { AxiosServices } from '@/src/lib/services/Axios.service';
-import { IAuth, SignInResponse } from '../interfaces/Auth.interface';
-import { AuthModel } from '../model/Auth.model';
+import { IAuth, SignInResponse } from './Auth.interface';
+import { AuthModel } from './Auth.model';
 import { Routes } from '../constants/routes';
+import { SignInputs } from './Auth.schema';
 
 class AuthService extends AxiosServices implements IAuth {
 
@@ -12,7 +13,7 @@ class AuthService extends AxiosServices implements IAuth {
     if (!validate.success) {
       return {
         errors: this.authModel.formatError(validate.error),
-        fields: validate.data,
+        fields: input as Pick<SignInputs, 'username' | 'password'>,
         hasError: true,
       };
     }

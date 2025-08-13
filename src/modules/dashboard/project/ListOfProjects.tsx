@@ -1,13 +1,13 @@
 
 import { removeProject } from '@/src/app/dashboard/project/action';
-import { ProjectTypeProps } from '@/src/app/dashboard/project/types';
 import { Button } from '@/src/components/Button';
+import { ProjectInputResponse } from '@/src/lib/project/types';
 import Image from 'next/image';
 import { toast } from 'sonner';
 
 interface ListOfProjects {
-  project: ProjectTypeProps
-  onEdit: (data: ProjectTypeProps) => void
+  project: ProjectInputResponse
+  onEdit: (data: ProjectInputResponse) => void
 }
 
 export const ListOfProjects: React.FC<ListOfProjects> = ({ project, onEdit }) => {
@@ -17,16 +17,17 @@ export const ListOfProjects: React.FC<ListOfProjects> = ({ project, onEdit }) =>
   const handleRemoveProject = async (e: React.FormEvent) => {
     e.preventDefault();
     const response = await removeProject(id ?? 0);
-    if (response.success) {
+    console.log(response, 'response');
+    if (!response.hasError) {
       toast.success(response.message);
     } else {
       toast.error(response.message);
     }
-
   };
+
   return (
     <div className="flex flex-col gap-4 p-4 border border-gray-50 rounded-lg shadow">
-      <Image src={imageUrl} width={400} height={400} className='rounded' alt='project-image' />
+      <Image src={imageUrl || 'https://jdevocion-portfolio-assets.s3.us-east-1.amazonaws.com'} width={400} height={400} className='rounded' alt='project-image' />
       <h1 className='text-base font-semibold'>{title}</h1>
       <p className='text-sm text-gray-500'>{description}</p>
       <ul className='flex flex-row gap-2'>

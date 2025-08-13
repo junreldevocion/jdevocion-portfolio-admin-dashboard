@@ -1,11 +1,11 @@
 
 import { TechStack } from '@/src/modules/dashboard/techstack';
-import { getTechStacks } from './action';
 import { Card } from '@/src/components/Card';
+import { TechstackService } from '@/src/lib/techstack/Techstack.service';
 
 export default async function TechStackPage() {
 
-  const result = await getTechStacks();
+  const result = await new TechstackService().getAll();
 
   return (
     <div className="mt-4">

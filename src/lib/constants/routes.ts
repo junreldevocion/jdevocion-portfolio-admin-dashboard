@@ -1,5 +1,6 @@
 export class Routes {
   static readonly HOME = '/';
+
   static readonly PROJECT = '/project';
   static projectDetail(id: number | string) {
     return `/project/${id}`;

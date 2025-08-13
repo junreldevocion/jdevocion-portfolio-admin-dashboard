@@ -1,11 +1,11 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { ServerCookieManager } from '@/src/lib/ServerCookieManager';
-import { AuthServiceInstance } from '@/src/lib/services/Auth.service';
-import { SignServerResponse } from './types';
+import { ServerCookieManager } from '@/src/lib/cookie/Server.Cookie';
+import { SignInResponse } from '@/src/lib/auth/Auth.interface';
+import { AuthServiceInstance } from '@/src/lib/auth/Auth.service';
 
-export async function handleLoginForm(initialState: unknown, formData: FormData): Promise<SignServerResponse> {
+export async function handleLoginForm(initialState: SignInResponse, formData: FormData): Promise<SignInResponse> {
   const data = {
     username: formData.get('username') as string,
     password: formData.get('password') as string

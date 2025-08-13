@@ -30,7 +30,6 @@ export class AxiosServices {
     this.axiosInstance = axios.create({
       baseURL: Environment.API_URL,
       headers: {
-        'Content-Type': 'application/json',
         ...(accessToken && { 'Authorization': `Bearer ${accessToken}` }),
       },
     });
@@ -43,10 +42,7 @@ export class AxiosServices {
   async get<T>(url: string): Promise<ApiResponse<T>> {
     try {
       const response = await this.axiosInstance.get<T>(url);
-      return {
-        data: response.data,
-        hasError: false,
-      };
+      return this.handleSuccess(response.data);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         return this.handleError(error);
@@ -63,11 +59,7 @@ export class AxiosServices {
   async post<T>(url: string, data: unknown): Promise<ApiResponse<T>> {
     try {
       const response = await this.axiosInstance.post<T>(url, data);
-      return {
-        data: response.data,
-        hasError: false,
-        statusCode: response.status
-      };
+      return this.handleSuccess(response.data);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         return this.handleError(error);
@@ -84,10 +76,7 @@ export class AxiosServices {
   async patch<T, D>(url: string, data: D): Promise<ApiResponse<T>> {
     try {
       const response = await this.axiosInstance.patch<T>(url, data);
-      return {
-        data: response.data,
-        hasError: false,
-      };
+      return this.handleSuccess(response.data);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         return this.handleError(error);
@@ -103,10 +92,7 @@ export class AxiosServices {
   async delete<T>(url: string): Promise<ApiResponse<T>> {
     try {
       const response = await this.axiosInstance.delete<T>(url);
-      return {
-        data: response.data,
-        hasError: false,
-      };
+      return this.handleSuccess<T>(response.data);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         return this.handleError(error);
@@ -114,6 +100,13 @@ export class AxiosServices {
       throw error;
 
     }
+  }
+
+  private handleSuccess<T>(data: T): ApiResponse<T> {
+    return {
+      data,
+      hasError: false
+    };
   }
 
   /**

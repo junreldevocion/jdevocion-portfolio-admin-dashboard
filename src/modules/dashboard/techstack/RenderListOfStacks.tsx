@@ -1,7 +1,7 @@
 
 import { deleteTechstack } from '@/src/app/dashboard/techstack/action';
 import { Button } from '@/src/components/Button';
-import { TechStackInput } from '@/src/lib/schema/techstack.schema';
+import { TechStackInput } from '@/src/lib/techstack/techstack.schema';
 import { format } from 'date-fns';
 
 interface ListOfStacksProps {
@@ -9,7 +9,7 @@ interface ListOfStacksProps {
   onEdit: (stack: TechStackInput) => void;
 }
 
-export const ListOfStacks = ({ stack, onEdit }: ListOfStacksProps) => {
+export const RenderListOfStacks = ({ stack, onEdit }: ListOfStacksProps) => {
   const { name, createdAt, createdBy, id } = stack;
   const createdByName = [createdBy].map(user => `${user?.firstname} ${user?.lastname}`).join(', ');
 
